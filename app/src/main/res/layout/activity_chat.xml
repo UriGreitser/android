@@ -7,16 +7,19 @@
     tools:context=".Chat">
 
     <ListView
-        android:id="@+id/lvPosts"
+        android:id="@+id/lvContacts"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+    </ListView>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnAddContact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="10dp"
-        android:src="@drawable/ic_add_contact"/>
+        android:src="@drawable/ic_add_contact" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
