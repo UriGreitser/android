@@ -32,7 +32,7 @@ public class Chat extends AppCompatActivity {
         });
         db = Room.databaseBuilder(getApplicationContext(),
                         AppDB.class, "UsersDB")
-                .allowMainThreadQueries().build();
+                .allowMainThreadQueries().fallbackToDestructiveMigration().build();
         contactDao = db.ContactDao();
 
         contacts = new ArrayList<>();
