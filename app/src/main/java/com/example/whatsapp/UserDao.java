@@ -11,11 +11,11 @@ import java.util.List;
 @Dao
 public interface UserDao {
     @Query("SELECT * FROM User")
-    List<Contact> index();
+    List<User> index();
 
 
-    @Query("SELECT * FROM User WHERE id = :id")
-    Contact get(int id);
+    @Query("SELECT * FROM User WHERE fakeID = :fakeID")
+    User get(int fakeID);
 
     @Insert
     void insert(User... users);

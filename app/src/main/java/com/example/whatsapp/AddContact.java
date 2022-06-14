@@ -18,7 +18,7 @@ public class AddContact extends AppCompatActivity {
 
         db = Room.databaseBuilder(getApplicationContext(),
                         AppDB.class, "UsersDB")
-                .allowMainThreadQueries().build();
+                .allowMainThreadQueries().fallbackToDestructiveMigration().build();
         ContactDao = db.ContactDao();
 
 
