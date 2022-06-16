@@ -25,10 +25,6 @@ private ContactDao ContactDao;
 
 
 
-
-
-
-
         //register button
     Button btnRegister = findViewById(R.id.btnRegister);
     btnRegister.setOnClickListener(v-> {
@@ -37,7 +33,7 @@ private ContactDao ContactDao;
     //login button
         Button btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(v-> {
-            startActivity(new Intent(MainActivity.this, Chat.class));
+            startActivity(new Intent(MainActivity.this, ContactList.class));
         });
 
     }

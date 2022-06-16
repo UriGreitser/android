@@ -31,7 +31,7 @@ public class Chat extends AppCompatActivity {
 
         });
         db = Room.databaseBuilder(getApplicationContext(),
-                        AppDB.class, "UsersDB")
+                        AppDB.class, "ContacsDB")
                 .allowMainThreadQueries().fallbackToDestructiveMigration().build();
         contactDao = db.ContactDao();
 
