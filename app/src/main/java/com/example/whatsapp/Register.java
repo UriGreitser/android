@@ -29,13 +29,16 @@ public class Register extends AppCompatActivity {
         db = AppDB.getDatabase(getApplicationContext());
         UserDao = db.UserDao();
         Button btnRegister = findViewById(R.id.btnRegister);
-
         btnRegister.setOnClickListener(v-> {
             EditText etName = findViewById(R.id.etName);
             TextView PasswordsDontMatch = findViewById(R.id.PasswordsMatch);
             TextView InvalidPassword = findViewById(R.id.InvalidPassword);
+            TextView UsernameTaken = findViewById(R.id.UsernameTaken);
+
+            UsernameTaken.setVisibility(TextView.INVISIBLE);
             PasswordsDontMatch.setVisibility(TextView.INVISIBLE);
             InvalidPassword.setVisibility(TextView.INVISIBLE);
+
             EditText etUserName = findViewById(R.id.etUserName);
             EditText etPassword = findViewById(R.id.etPassword);
             EditText etConfirmPassword = findViewById(R.id.etConfirmPassword);
@@ -43,6 +46,11 @@ public class Register extends AppCompatActivity {
             String userName = etUserName.getText().toString();
             String password = etPassword.getText().toString();
             String confirmPassword = etConfirmPassword.getText().toString();
+            User u = UserDao.getName(name);
+            if (u != null) {
+                flag = true;
+                UsernameTaken.setVisibility(TextView.VISIBLE);
+            }
             if (!password.equals(confirmPassword)) {
                 flag = true;
                 PasswordsDontMatch.setVisibility(TextView.VISIBLE);
@@ -52,8 +60,6 @@ public class Register extends AppCompatActivity {
                 flag = true;
                 InvalidPassword.setVisibility(TextView.VISIBLE);
             }
-
-
             if (!flag) {
                 User user = new User();
                 user.setName(name);
@@ -66,7 +72,6 @@ public class Register extends AppCompatActivity {
                 startActivity(new Intent(Register.this, ContactList.class));
 
             }
-            flag = false;
 
 
         });

@@ -83,7 +83,7 @@
         android:layout_width="210dp"
         android:layout_height="21dp"
         android:layout_marginTop="7dp"
-        android:text="Username is taken"
+        android:text="name is taken"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
