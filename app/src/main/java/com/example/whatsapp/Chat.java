@@ -12,7 +12,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//no need
 public class Chat extends AppCompatActivity {
 
     private List<Contact> contacts;
@@ -31,7 +31,7 @@ public class Chat extends AppCompatActivity {
 
         });
         db = Room.databaseBuilder(getApplicationContext(),
-                        AppDB.class, "UsersDB")
+                        AppDB.class, "ContacsDB")
                 .allowMainThreadQueries().fallbackToDestructiveMigration().build();
         contactDao = db.ContactDao();
 
@@ -40,6 +40,7 @@ public class Chat extends AppCompatActivity {
         ListView lvContacts = findViewById(R.id.lvContacts);
         adapter = new ArrayAdapter<Contact>(this, android.R.layout.simple_list_item_1, contacts);
         lvContacts.setAdapter(adapter);
+        contacts.addAll(contactDao.index());
         lvContacts.setOnItemLongClickListener((adapterView, view,i,l) -> {
             Contact contact = contacts.remove(i);
             contactDao.delete(contact);

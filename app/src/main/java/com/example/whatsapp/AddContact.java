@@ -5,7 +5,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 public class AddContact extends AppCompatActivity {
     private AppDB db;
@@ -15,23 +14,19 @@ public class AddContact extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contact);
-
-        db = Room.databaseBuilder(getApplicationContext(),
-                        AppDB.class, "UsersDB")
-                .allowMainThreadQueries().fallbackToDestructiveMigration().build();
-        ContactDao = db.ContactDao();
-
-
         Button btnSave = findViewById(R.id.btnSave);
+        db = AppDB.getDatabase(getApplicationContext());
+        ContactDao = db.ContactDao();
         btnSave.setOnClickListener(view -> {
         EditText etContent = findViewById(R.id.etContent);
-        Contact contact = new Contact(0,etContent.getText().toString());
+        Contact contact = new Contact();
+        contact.setName(etContent.getText().toString());
+        contact.setId(etContent.getText().toString());
+        contact.setUserName(etContent.getText().toString());
+        contact.setLast("last text");
+        contact.setLastdate("last date");
         ContactDao.insert(contact);
         finish();
-
-
-
-
     });
     }
 }
