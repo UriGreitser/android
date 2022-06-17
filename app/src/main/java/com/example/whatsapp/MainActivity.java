@@ -48,7 +48,9 @@ private boolean flag = false;
             }
             if (!flag) {
                 flag = false;
-                startActivity(new Intent(MainActivity.this, ContactList.class));
+                Intent intent = new Intent(MainActivity.this, ContactList.class);
+                intent.putExtra("username", Username);
+                startActivity(intent);
             }
         });
 

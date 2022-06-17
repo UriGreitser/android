@@ -17,6 +17,8 @@ public class ContactList extends AppCompatActivity {
     private ContactDao ContactDao;
     private ListView listView;
     private CustomListAdapter adapter;
+    private Intent CurrentIntent;
+    private String ConnectedUsername;
 
 
     @Override
@@ -26,28 +28,22 @@ public class ContactList extends AppCompatActivity {
 
         FloatingActionButton btnAddContact = findViewById(R.id.btnAddContact);
         btnAddContact.setOnClickListener(v-> {
-            startActivity(new Intent(ContactList.this, AddContact.class));
-
+            Intent intent2 = new Intent(ContactList.this, AddContact.class);
+            intent2.putExtra("username",CurrentIntent.getStringExtra("username"));
+            startActivity(intent2);
         });
 
-//        db = Room.databaseBuilder(getApplicationContext(),
-//                        AppDB.class, "ContacsDB")
-//                .allowMainThreadQueries().fallbackToDestructiveMigration().build();
-//        contactDao = db.ContactDao();
-//
+        CurrentIntent = getIntent();
         db = AppDB.getDatabase(getApplicationContext());
         ContactDao = db.ContactDao();
-        Contact c = new Contact();
-        c.setLast("last");
-        c.setServer("server");
-        c.setLastdate("lastdate");
-        c.setName("name");
-        c.setId("id");
-        contacts = ContactDao.index();
+        ConnectedUsername = CurrentIntent.getStringExtra("username");
+        contacts = ContactDao.indexUsers(ConnectedUsername);
         listView = findViewById(R.id.list_view);
         adapter = new CustomListAdapter(getApplicationContext(), contacts);
         listView.setAdapter(adapter);
         listView.setClickable(true);
+
+
         listView.setOnItemClickListener((adapterView,view,i,l)->{
             Intent intent = new Intent(ContactList.this, SpecificChat.class);
             intent.putExtra("id", contacts.get(i).getId());
@@ -59,6 +55,8 @@ public class ContactList extends AppCompatActivity {
             adapter.notifyDataSetChanged();
             return true;
         });
+
+
         Button btn = findViewById(R.id.button);
         btn.setVisibility(Button.INVISIBLE);
 
@@ -68,7 +66,8 @@ public class ContactList extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         contacts.clear();
-        contacts.addAll(ContactDao.index());
+        contacts.addAll(ContactDao.indexUsers(ConnectedUsername));
+        int x = contacts.size();
         adapter.notifyDataSetChanged();
     }
 
