@@ -60,6 +60,7 @@ public class Register extends AppCompatActivity {
             if (!isValidPassword(etPassword.getText().toString())) {
                 flag = true;
                 InvalidPassword.setVisibility(TextView.VISIBLE);
+                //testvzdfvjgjgjuaergaeg
             }
             if (!flag) {
                 User user = new User();
