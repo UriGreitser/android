@@ -2,6 +2,7 @@ package com.example.whatsapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -69,7 +70,9 @@ public class Register extends AppCompatActivity {
                 user.setPicture("picture");
                 UserDao.insert(user);
                 flag = false;
-                startActivity(new Intent(Register.this, ContactList.class));
+                TextView good = findViewById(R.id.good);
+                good.setVisibility(View.VISIBLE);
+                startActivity(new Intent(Register.this, MainActivity.class));
 
             }
 
