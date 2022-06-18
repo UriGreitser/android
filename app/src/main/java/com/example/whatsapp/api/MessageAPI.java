@@ -2,9 +2,9 @@ package com.example.whatsapp.api;
 
 import android.util.Log;
 
+import com.example.whatsapp.Message;
 import com.example.whatsapp.MyApplication;
 import com.example.whatsapp.R;
-import com.example.whatsapp.User;
 
 import java.util.List;
 
@@ -13,14 +13,12 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class UserAPI {
-    private List<User> users;
+public class MessageAPI {
     Retrofit retrofit;
     WebServerAPI WebServerAPI;
+    List<Message> messages;
 
-    public UserAPI(List<User> users) {                        //MutableLiveData<List<User>> UserListData, UserDao dao
-        this.users = users;
-
+    public MessageAPI(){
         retrofit = new Retrofit.Builder()
                 .baseUrl(MyApplication.context.getString(R.string.BaseUrl))
                 .addConverterFactory(GsonConverterFactory.create())
@@ -28,7 +26,8 @@ public class UserAPI {
         WebServerAPI = retrofit.create(WebServerAPI.class);
     }
 
-    public UserAPI(){
+    public MessageAPI(List<Message> messages){
+        this.messages = messages;
         retrofit = new Retrofit.Builder()
                 .baseUrl(MyApplication.context.getString(R.string.BaseUrl))
                 .addConverterFactory(GsonConverterFactory.create())
@@ -36,30 +35,8 @@ public class UserAPI {
         WebServerAPI = retrofit.create(WebServerAPI.class);
     }
 
-    public void get() {
-        Call<List<User>> call = WebServerAPI.getUsers();
-        call.enqueue(new Callback<List<User>>() {
-            @Override
-            public void onResponse(Call<List<User>> call, retrofit2.Response<List<User>> response) {
-                if (response.isSuccessful()) {
-                    users.clear();
-                    users.addAll(response.body());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<User>> call, Throwable t) {
-                Log.d("UserAPI", "onFailure: " + t.getMessage());
-            }
-        });
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void post(User user) {
-        Call<Void> call = WebServerAPI.postUser(user);
+    public void post(Message message, String username) {
+        Call<Void> call = WebServerAPI.postMessage(username, message.getContactId(), message.getContent());
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, retrofit2.Response<Void> response) {
@@ -67,29 +44,28 @@ public class UserAPI {
                 }
             }
 
-            @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 Log.d("UserAPI", "onFailure: " + t.getMessage());
             }
         });
     }
 
-    public void getUser(String id) {
-        Call<User> call = WebServerAPI.getUser(id);
-        call.enqueue(new Callback<User>() {
+    public void get(String username, String contactId) {
+        Call<List<Message>> call = WebServerAPI.getMessages(username,contactId);
+        call.enqueue(new Callback<List<Message>>() {
             @Override
-            public void onResponse(Call<User> call, retrofit2.Response<User> response) {
+            public void onResponse(Call<List<Message>> call, retrofit2.Response<List<Message>> response) {
                 if (response.isSuccessful()) {
-                    User user = response.body();
-                    users.clear();
-                    users.add(user);
+                    messages.clear();
+                    messages.addAll(response.body());
                 }
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<List<Message>> call, Throwable t) {
                 Log.d("UserAPI", "onFailure: " + t.getMessage());
             }
         });
     }
+
 }

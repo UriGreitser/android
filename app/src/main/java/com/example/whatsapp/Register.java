@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.whatsapp.api.UserAPI;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,6 +18,7 @@ public class Register extends AppCompatActivity {
     private AppDB db;
     private UserDao UserDao;
     private boolean flag = false;
+    private UserAPI userAPI = new UserAPI();
 
 
     public static boolean isValidPassword(String password) {
@@ -69,6 +72,7 @@ public class Register extends AppCompatActivity {
                 user.setServer("server");
                 user.setPicture("picture");
                 UserDao.insert(user);
+                this.userAPI.post(user);
                 flag = false;
                 TextView good = findViewById(R.id.good);
                 good.setVisibility(View.VISIBLE);

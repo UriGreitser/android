@@ -8,26 +8,20 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.whatsapp.api.UserAPI;
-
-import java.util.ArrayList;
-import java.util.List;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 private AppDB db;
 private UserDao UserDao;
 private boolean flag = false;
-private List<User> users;
+//private List<User> users;
+//private List<Contact> contacts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.users = new ArrayList<User>();
-        UserAPI userAPI = new UserAPI(users, UserDao);
-        userAPI.get();
 
 
         db = AppDB.getDatabase(getApplicationContext());
