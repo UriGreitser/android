@@ -2,7 +2,6 @@ package com.example.whatsapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,12 +19,10 @@ public class ContactList extends AppCompatActivity {
     private Intent CurrentIntent;
     private String ConnectedUsername;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState);
         setContentView(R.layout.activity_contact_list);
-
         FloatingActionButton btnAddContact = findViewById(R.id.btnAddContact);
         btnAddContact.setOnClickListener(v-> {
             Intent intent2 = new Intent(ContactList.this, AddContact.class);
@@ -46,20 +43,17 @@ public class ContactList extends AppCompatActivity {
 
         listView.setOnItemClickListener((adapterView,view,i,l)->{
             Intent intent = new Intent(ContactList.this, SpecificChat.class);
+            intent.putExtra("username",CurrentIntent.getStringExtra("username"));
             intent.putExtra("id", contacts.get(i).getId());
             startActivity(intent);
         });
+
         listView.setOnItemLongClickListener((adapterView, view,i,l) -> {
             Contact contact = contacts.remove(i);
             ContactDao.delete(contact);
             adapter.notifyDataSetChanged();
             return true;
         });
-
-
-        Button btn = findViewById(R.id.button);
-        btn.setVisibility(Button.INVISIBLE);
-
     }
 
     @Override

@@ -17,6 +17,9 @@ public class User {
     private String server;
     private String picture;
 
+    public User() {
+    }
+
 
     public String getName() {
         return name;
@@ -87,6 +90,14 @@ public class User {
         this.password = password;
         this.server = server;
         this.picture = picture;
+    }
+      
+    public User(String name, String nickname, String password, String server, String picture) {
+        Name = name;
+        Nickname = nickname;
+        Password = password;
+        Server = server;
+        Picture = picture;
     }
 
 }

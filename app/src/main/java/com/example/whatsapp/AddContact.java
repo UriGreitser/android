@@ -23,11 +23,15 @@ public class AddContact extends AppCompatActivity {
         Button btnSave = findViewById(R.id.btnSave);
         db = AppDB.getDatabase(getApplicationContext());
         ContactDao = db.ContactDao();
+
         btnSave.setOnClickListener(view -> {
-        EditText etContent = findViewById(R.id.etContent);
+        EditText nickname = findViewById(R.id.NewContactNickname);
+        EditText ID = findViewById(R.id.NewContactID);
+        EditText server = findViewById(R.id.NewContactServer);
         Contact contact = new Contact();
-        contact.setName(etContent.getText().toString());
-        contact.setId(etContent.getText().toString());
+        contact.setName(nickname.getText().toString());
+        contact.setId(ID.getText().toString());
+        contact.setServer(server.getText().toString());
         contact.setUserName(ConnectedUsername);
         contact.setLast("last text");
         contact.setLastdate("last date");
