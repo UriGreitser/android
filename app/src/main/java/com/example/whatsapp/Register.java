@@ -63,8 +63,7 @@ public class Register extends AppCompatActivity {
                 //testvzdfvjgjgjuaergaeg
             }
             if (!flag) {
-                User user = new User();
-                user.setName(name);
+                User user = new User(name);
                 user.setNickname(userName);
                 user.setPassword(password);
                 user.setServer("server");
