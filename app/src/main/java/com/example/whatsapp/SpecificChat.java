@@ -9,8 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 
@@ -34,7 +35,7 @@ public class SpecificChat extends AppCompatActivity {
         db = AppDB.getDatabase(getApplicationContext());
         MessageDao = db.MessageDao();
         ConnectedUsername = CurrentIntent.getStringExtra("username");
-        messages = MessageDao.index();
+        messages = MessageDao.indexMessages(CurrentIntent.getStringExtra("id"));
         listView = findViewById(R.id.list_view);
         adapter = new CustomMessageAdapter(getApplicationContext(), messages);
         listView.setAdapter(adapter);
@@ -44,12 +45,13 @@ public class SpecificChat extends AppCompatActivity {
             EditText message = findViewById(R.id.textContent);
             Message message1 = new Message();
             message1.setContent(message.getText().toString());
-            Date currentTime = Calendar.getInstance().getTime();
-            message1.setCreated(currentTime.toString());
+            DateFormat df = new SimpleDateFormat("h:mm a");
+            String date = df.format(Calendar.getInstance().getTime());
+            message1.setCreated(date);
             message1.setSent(true);
             message1.setContactId(CurrentIntent.getStringExtra("id"));
             MessageDao.insert(message1);
-
+            adapter.notifyDataSetChanged();
         });
 
         listView.setOnItemLongClickListener((adapterView, view,i,l) -> {
@@ -65,7 +67,7 @@ public class SpecificChat extends AppCompatActivity {
     protected void onRefresh() {
         super.onResume();
         messages.clear();
-        messages.addAll(MessageDao.index());
+        messages.addAll(MessageDao.indexMessages(CurrentIntent.getStringExtra("id")));
         int x = messages.size();
         adapter.notifyDataSetChanged();
     }
@@ -73,7 +75,7 @@ public class SpecificChat extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         messages.clear();
-        messages.addAll(MessageDao.index());
+        messages.addAll(MessageDao.indexMessages(CurrentIntent.getStringExtra("id")));
         int x = messages.size();
         adapter.notifyDataSetChanged();
     }
