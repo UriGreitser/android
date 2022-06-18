@@ -35,10 +35,10 @@ public interface WebServerAPI {
     Call<Void> postContact(@Query("username") String username , @Body ContactAPI.ContactStruct contact);
 
     @GET("api/contacts/{id}")
-    Call<Contact> getContact(@Query("username") String username,@Path("id") String id);
+    Call<Contact> getContact(@Path("id") String id, @Query("username") String username);
 
     @DELETE("api/contacts/{id}")
-    Call<Void> deleteContact(@Query("username") String username,@Path("id") String id);
+    Call<Void> deleteContact(@Path("id") String id, @Query("username") String username);
 
     //Invitations Api ---------------------------------------------------------------------------------------------------------
     @POST("api/invitations")
@@ -50,10 +50,10 @@ public interface WebServerAPI {
 
     //Messages Api ---------------------------------------------------------------------------------------------------------
     @GET("api/contacts/{id}/messages")
-    Call<List<Message>> getMessages(@Query("username") String username, @Path("id") String id);
+    Call<List<Message>> getMessages(@Path("id") String id,@Query("username") String username);
 
     @POST("api/messages/{id}")
-    Call<Void> postMessage(@Query("username") String username, @Path("id") String id, @Body String content);
+    Call<Void> postMessage(@Path("id") String id,@Query("username") String username, @Body String content);
 //wqdqwd
 
 
