@@ -14,8 +14,8 @@ public interface UserDao {
     List<User> index();
 
 
-    @Query("SELECT * FROM User WHERE fakeID = :fakeID")
-    User get(int fakeID);
+    @Query("SELECT * FROM User WHERE Name = :Name")
+    User get(String Name);
 
 
     @Query("SELECT * FROM User WHERE Name = :name")

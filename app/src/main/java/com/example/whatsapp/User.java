@@ -1,88 +1,92 @@
 package com.example.whatsapp;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import java.util.List;
 
 @Entity
 public class User {
 
-    @PrimaryKey(autoGenerate= true)
-    private int fakeID;
-    private String Name;
-    private String Nickname;
-    private String Password;
-    private String Server;
-    private String Picture;
+    @PrimaryKey
+    @NonNull
+    private String name;
+    private String nickname;
+    private String password;
+    private String server;
+    private String picture;
 
-    public User() {
-    }
-
-    public int getFakeID() {
-        return fakeID;
-    }
-
-    public void setFakeID(int fakeID) {
-        this.fakeID = fakeID;
-    }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getNickname() {
-        return Nickname;
+        return nickname;
     }
 
     public void setNickname(String nickname) {
-        Nickname = nickname;
+        this.nickname = nickname;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
 
     public String getServer() {
-        return Server;
+        return server;
     }
 
     public void setServer(String server) {
-        Server = server;
+        this.server = server;
+    }
+
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "fakeID=" + fakeID +
-                ", Name='" + Name + '\'' +
-                ", Nickname='" + Nickname + '\'' +
-                ", Password='" + Password + '\'' +
-                ", Server='" + Server + '\'' +
-                ", Picture='" + Picture + '\'' +
+                "Name='" + name + '\'' +
+                ", Nickname='" + nickname + '\'' +
+                ", Password='" + password + '\'' +
+                ", Server='" + server + '\'' +
+                ", Picture='" + picture + '\'' +
                 '}';
     }
 
-    public String getPicture() {
-        return Picture;
+    public User(String name, String nickname, String password, String server, String picture) {
+        this.name = name;
+        this.nickname = nickname;
+        this.password = password;
+        this.server = server;
+        this.picture = picture;
     }
 
-    public void setPicture(String picture) {
-        Picture = picture;
+    public User() {
     }
 
-    public User(int fakeID, String name, String nickname, String password, String server, String picture) {
-        this.fakeID = fakeID;
-        Name = name;
-        Nickname = nickname;
-        Password = password;
-        Server = server;
-        Picture = picture;
+    public User(@NonNull String name, String nickname, String password, String server, String picture, List<String> contacts) {
+        this.name = name;
+        this.nickname = nickname;
+        this.password = password;
+        this.server = server;
+        this.picture = picture;
     }
+
 }

@@ -1,13 +1,14 @@
 package com.example.whatsapp;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
 public class Contact {
 
-    @PrimaryKey(autoGenerate= true)
-    private int fakeID;
+    @PrimaryKey
+    @NonNull
     private String id;
     private String name;
     private String server;
@@ -30,14 +31,6 @@ public class Contact {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getFakeID() {
-        return fakeID;
-    }
-
-    public void setFakeID(int fakeID) {
-        this.fakeID = fakeID;
     }
 
     public String getServer() {
@@ -89,8 +82,7 @@ public class Contact {
         UserName = userName;
     }
 
-    public Contact(int fakeID, String id) {
-        this.fakeID = fakeID;
+    public Contact(String id) {
         this.id = id;
     }
 
@@ -101,7 +93,6 @@ public class Contact {
     @Override
     public String toString() {
         return "Contact{" +
-                "fakeID=" + fakeID +
                 ", id='" + id + '\'' +
 //                ", name='" + name + '\'' +
 //                ", server='" + server + '\'' +
