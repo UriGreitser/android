@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 public class MainActivity extends AppCompatActivity {
 private AppDB db;
 private UserDao UserDao;
@@ -21,6 +23,11 @@ private boolean flag = false;
         UserDao = db.UserDao();
         //register button
     Button btnRegister = findViewById(R.id.btnRegister);
+    FloatingActionButton btnSettings = findViewById(R.id.btnAddContact);
+    btnSettings.setOnClickListener(v -> {
+        startActivity(new Intent(MainActivity.this, Settings.class));
+
+    });
     btnRegister.setOnClickListener(v-> {
         startActivity(new Intent(MainActivity.this, Register.class));
     });

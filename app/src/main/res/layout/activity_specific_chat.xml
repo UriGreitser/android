@@ -3,82 +3,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".SpecificChat">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/layout_group_chat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_gchannel"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:theme="@style/Widget.AppCompat.Toolbar"
-            app:popupTheme="@style/Theme.AppCompat.Light">
-
-        </androidx.appcompat.widget.Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_gchat"
+    <ListView
+        android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="16dp"
-        app:layout_constrainedHeight="true"
-        app:layout_constraintBottom_toTopOf="@+id/text_gchat_indicator"
-        app:layout_constraintTop_toBottomOf="@+id/layout_group_chat" />
+        tools:listitem="@layout/custom_list_text_msg"
+        >
+    </ListView>
 
-    <TextView
-        android:id="@+id/text_gchat_indicator"
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/textContent"
+        android:layout_width="346dp"
+        android:layout_height="51dp"
+        android:ellipsize="end"
+        android:hint="Send message"
+        android:maxLines="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.93"
+        tools:ignore="KeyboardInaccessibleWidget" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnSendMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/view"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#e0e0e0"
-        app:layout_constraintBottom_toTopOf="@+id/layout_gchat_chatbox" />
-
-    <RelativeLayout
-        android:id="@+id/layout_gchat_chatbox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-
-        <EditText
-            android:id="@+id/edit_gchat_message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="16dp"
-            android:layout_toStartOf="@+id/button_gchat_send"
-            android:background="@android:color/transparent"
-            android:hint="Enter Message"
-            android:inputType="text"
-            android:maxLines="6"
-            android:minHeight="48dp"
-            tools:ignore="Autofill" />
-
-        <Button
-            android:id="@+id/button_gchat_send"
-            android:layout_width="64dp"
-            android:layout_height="48dp"
-            android:layout_alignParentEnd="true"
-            android:background="?attr/selectableItemBackground"
-            android:text="Send" />
-
-    </RelativeLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.952" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

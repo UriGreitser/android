@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Message {
 
-    @PrimaryKey()
+    @PrimaryKey(autoGenerate = true)
     private int id;
     private String content;
     private String created;
@@ -55,6 +55,9 @@ public class Message {
 
     public String getContactId() {
         return contactId;
+    }
+
+    public Message() {
     }
 
     public void setContactId(String contactId) {
