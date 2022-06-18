@@ -9,8 +9,8 @@ import java.util.List;
 @Entity
 public class User {
 
-    @PrimaryKey
     @NonNull
+    @PrimaryKey
     private String name;
     private String nickname;
     private String password;
@@ -20,7 +20,6 @@ public class User {
     public User() {
 
     }
-
 
     public String getName() {
         return name;
@@ -73,16 +72,17 @@ public class User {
                 ", Picture='" + picture + '\'' +
                 '}';
     }
+//
+//    public User(String name, String nickname, String password, String server, String picture) {
+//        this.name = name;
+//        this.nickname = nickname;
+//        this.password = password;
+//        this.server = server;
+//        this.picture = picture;
+//    }
 
-    public User(String name, String nickname, String password, String server, String picture) {
+    public User(String name) {
         this.name = name;
-        this.nickname = nickname;
-        this.password = password;
-        this.server = server;
-        this.picture = picture;
-    }
-
-    public User() {
     }
 
     public User(@NonNull String name, String nickname, String password, String server, String picture, List<String> contacts) {
@@ -91,14 +91,6 @@ public class User {
         this.password = password;
         this.server = server;
         this.picture = picture;
-    }
-      
-    public User(String name, String nickname, String password, String server, String picture) {
-        Name = name;
-        Nickname = nickname;
-        Password = password;
-        Server = server;
-        Picture = picture;
     }
 
 }
