@@ -3,7 +3,6 @@ package com.example.whatsapp.api;
 import android.util.Log;
 
 import com.example.whatsapp.User;
-import com.example.whatsapp.UserDao;
 
 import java.util.List;
 
@@ -14,16 +13,22 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UserAPI {
     private List<User> users;
-    private UserDao dao;
     Retrofit retrofit;
     WebServerAPI WebServerAPI;
 
-    public UserAPI(List<User> users, UserDao dao) {                        //MutableLiveData<List<User>> UserListData, UserDao dao
+    public UserAPI(List<User> users) {                        //MutableLiveData<List<User>> UserListData, UserDao dao
         this.users = users;
-        this.dao = dao;
 
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:7092/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        WebServerAPI = retrofit.create(WebServerAPI.class);
+    }
+
+    public UserAPI(){
+        retrofit = new Retrofit.Builder()
+                .baseUrl(MyApplication.context.getString(R.string.BaseUrl))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         WebServerAPI = retrofit.create(WebServerAPI.class);
@@ -37,9 +42,6 @@ public class UserAPI {
                 if (response.isSuccessful()) {
                     users.clear();
                     users.addAll(response.body());
-                    Log.d("test1", users.toString());
-//                    dao.insert(users.toArray(new User[0]));
-//                    UserListData.setValue(users);
                 }
             }
 
@@ -53,26 +55,39 @@ public class UserAPI {
     public List<User> getUsers() {
         return users;
     }
+
+    public void post(User user) {
+        Call<Void> call = WebServerAPI.postUser(user);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, retrofit2.Response<Void> response) {
+                if (response.isSuccessful()) {
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.d("UserAPI", "onFailure: " + t.getMessage());
+            }
+        });
+    }
+
+    public void getUser(String id) {
+        Call<User> call = WebServerAPI.getUser(id);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, retrofit2.Response<User> response) {
+                if (response.isSuccessful()) {
+                    User user = response.body();
+                    users.clear();
+                    users.add(user);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.d("UserAPI", "onFailure: " + t.getMessage());
+            }
+        });
+    }
 }
-//
-//        call.enqueue(new Callback<List<User>>() {
-//            @Override
-//            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-//
-//                List<User> users= response.body();
-//                Log.d("UserAPI",   response.body().toString());
-//
-//
-////                new Thread(() -> {
-////                    dao.clear();
-////                    dao.insertList(response.body());
-////                    UserListData.UserValue(dao.get());
-////                }).start();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<User>> call, Throwable t) {
-//            }
-//        });
-//    }
-//}

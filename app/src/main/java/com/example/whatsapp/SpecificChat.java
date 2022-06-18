@@ -7,6 +7,8 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.whatsapp.api.MessageAPI;
+import com.example.whatsapp.api.TransferAPI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.DateFormat;
@@ -24,6 +26,8 @@ public class SpecificChat extends AppCompatActivity {
     private CustomMessageAdapter adapter;
     private Intent CurrentIntent;
     private String ConnectedUsername;
+    private TransferAPI transferAPI;
+    private MessageAPI messageAPI = new MessageAPI();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,9 @@ public class SpecificChat extends AppCompatActivity {
             ContactDao.insert(c);
             MessageDao.insert(message1);
             adapter.notifyDataSetChanged();
+            this.transferAPI = new TransferAPI(c.getServer());
+            this.transferAPI.post(ConnectedUsername, message1.getContactId(), message1.getContent());
+            this.messageAPI.post(message1, ConnectedUsername);
         });
 
         listView.setOnItemLongClickListener((adapterView, view,i,l) -> {
