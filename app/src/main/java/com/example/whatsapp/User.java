@@ -1,13 +1,14 @@
 package com.example.whatsapp;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
 public class User {
 
-    @PrimaryKey(autoGenerate= true)
-    private int fakeID;
+    @NonNull
+    @PrimaryKey
     private String Name;
     private String Nickname;
     private String Password;
@@ -17,13 +18,6 @@ public class User {
     public User() {
     }
 
-    public int getFakeID() {
-        return fakeID;
-    }
-
-    public void setFakeID(int fakeID) {
-        this.fakeID = fakeID;
-    }
 
     public String getName() {
         return Name;
@@ -60,7 +54,6 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "fakeID=" + fakeID +
                 ", Name='" + Name + '\'' +
                 ", Nickname='" + Nickname + '\'' +
                 ", Password='" + Password + '\'' +
@@ -77,8 +70,7 @@ public class User {
         Picture = picture;
     }
 
-    public User(int fakeID, String name, String nickname, String password, String server, String picture) {
-        this.fakeID = fakeID;
+    public User(String name, String nickname, String password, String server, String picture) {
         Name = name;
         Nickname = nickname;
         Password = password;

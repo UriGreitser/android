@@ -7,28 +7,63 @@
     tools:context=".AddContact">
 
 
-    <LinearLayout
-     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-     app:layout_constraintBottom_toBottomOf="parent"
-     app:layout_constraintTop_toTopOf="parent">
+    <EditText
+        android:id="@+id/NewContactID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:ems="10"
+        android:hint="Contact's ID"
+        app:layout_constraintBottom_toTopOf="@+id/NewContactNickname"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.899"
+        tools:ignore="TouchTargetSizeCheck" />
 
-        <EditText
-            android:id="@+id/etContent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:ems="10"
-            android:hint="Add contact" />
+    <EditText
+        android:id="@+id/NewContactNickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:ems="10"
+        android:hint="Contact's nickname"
+        app:layout_constraintBottom_toTopOf="@+id/NewContactServer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.926"
+        tools:ignore="TouchTargetSizeCheck" />
 
-        <Button
-            android:id="@+id/btnSave"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Add" />
-     </LinearLayout>
+    <EditText
+        android:id="@+id/NewContactServer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:ems="10"
+        android:hint="Contact's server"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.622"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="52dp"
+        android:text="Add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/NewContactServer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

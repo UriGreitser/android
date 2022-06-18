@@ -14,6 +14,10 @@ public interface MessageDao {
     @Query("SELECT * FROM Message")
     List<Message> index();
 
+    @Query("SELECT * FROM Message WHERE contactId = :contactId")
+    List<Message> indexMessages(String contactId);
+
+
     @Query("SELECT * FROM Message WHERE id = :id")
     Message get(int id);
 

@@ -14,7 +14,6 @@
         android:layout_height="match_parent"
         tools:listitem="@layout/custom_list_chat"
         >
-
     </ListView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -24,17 +23,9 @@
         android:layout_margin="10dp"
         android:contentDescription="@string/action_sign_in"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/list_view"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:src="@drawable/ic_add_contact"/>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
