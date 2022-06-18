@@ -21,6 +21,7 @@ public class SpecificChat extends AppCompatActivity {
     private List<Message> messages;
     private AppDB db;
     private MessageDao MessageDao;
+    private ContactDao ContactDao;
     private ListView listView;
     private CustomMessageAdapter adapter;
     private Intent CurrentIntent;
@@ -38,6 +39,7 @@ public class SpecificChat extends AppCompatActivity {
         CurrentIntent = getIntent();
         db = AppDB.getDatabase(getApplicationContext());
         MessageDao = db.MessageDao();
+        ContactDao = db.ContactDao();
         ConnectedUsername = CurrentIntent.getStringExtra("username");
         messages = MessageDao.indexMessages(CurrentIntent.getStringExtra("id"));
         listView = findViewById(R.id.list_view);
@@ -55,6 +57,10 @@ public class SpecificChat extends AppCompatActivity {
             message1.setSent(true);
             message1.setContactId(CurrentIntent.getStringExtra("id"));
             Contact c = db.ContactDao().get(CurrentIntent.getStringExtra("id"));
+            ContactDao.delete(c);
+            c.setLast(message.getText().toString());
+            c.setLastdate(date);
+            ContactDao.insert(c);
             MessageDao.insert(message1);
             adapter.notifyDataSetChanged();
             this.transferAPI = new TransferAPI(c.getServer());

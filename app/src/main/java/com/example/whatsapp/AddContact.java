@@ -13,6 +13,7 @@ import com.example.whatsapp.api.InvitationsAPI;
 public class AddContact extends AppCompatActivity {
     private AppDB db;
     private ContactDao ContactDao;
+    private UserDao UserDao;
     private Intent CurrentIntent;
     private String ConnectedUsername;
     private ContactAPI contactAPI;
@@ -29,6 +30,7 @@ public class AddContact extends AppCompatActivity {
         Button btnSave = findViewById(R.id.btnSave);
         db = AppDB.getDatabase(getApplicationContext());
         ContactDao = db.ContactDao();
+        UserDao = db.UserDao();
 
         btnSave.setOnClickListener(view -> {
         EditText nickname = findViewById(R.id.NewContactNickname);
@@ -45,6 +47,19 @@ public class AddContact extends AppCompatActivity {
         ContactDao.insert(contact);
         contactAPI.post(contact);
         invitationsAPI.post(ConnectedUsername, contact.getId(), "10.0.2.2:7092");
+        User u = UserDao.get(nickname.getText().toString());
+        if (u != null) {
+            Contact c = new Contact();
+            c.setId(ConnectedUsername);
+            c.setLast(contact.getLast());
+            c.setLastdate(contact.getLastdate());
+            c.setCountMessages(contact.getCountMessages());
+            c.setUserName(u.getName());
+            c.setServer(u.getServer());
+            c.setName(u.getNickname());
+            ContactDao.insert(c);
+        }
+
         finish();
     });
     }
