@@ -1,9 +1,12 @@
 package com.example.whatsapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,6 +27,7 @@ public class SpecificChat extends AppCompatActivity {
     private CustomMessageAdapter adapter;
     private Intent CurrentIntent;
     private String ConnectedUsername;
+    private EditText message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,26 +43,51 @@ public class SpecificChat extends AppCompatActivity {
         ConnectedUsername = CurrentIntent.getStringExtra("username");
         messages = MessageDao.indexMessages(CurrentIntent.getStringExtra("id"));
         listView = findViewById(R.id.list_view);
-        adapter = new CustomMessageAdapter(getApplicationContext(), messages);
+        adapter = new CustomMessageAdapter(getApplicationContext(), messages,ConnectedUsername);
         listView.setAdapter(adapter);
         listView.setClickable(true);
+        TextView contactName = findViewById(R.id.contactName);
+        contactName.setText(CurrentIntent.getStringExtra("id"));
 
         btnSendMessage.setOnClickListener(view -> {
-            EditText message = findViewById(R.id.textContent);
-            Message message1 = new Message();
-            message1.setContent(message.getText().toString());
-            DateFormat df = new SimpleDateFormat("h:mm a");
-            String date = df.format(Calendar.getInstance().getTime());
-            message1.setCreated(date);
-            message1.setSent(true);
-            message1.setContactId(CurrentIntent.getStringExtra("id"));
-            Contact c = db.ContactDao().get(CurrentIntent.getStringExtra("id"));
-            ContactDao.delete(c);
-            c.setLast(message.getText().toString());
-            c.setLastdate(date);
-            ContactDao.insert(c);
-            MessageDao.insert(message1);
-            adapter.notifyDataSetChanged();
+            User userCheck = db.UserDao().get(contactName.toString());
+            if(userCheck == null) {
+
+            }
+            else {
+                message = findViewById(R.id.textContent);
+                Message message1 = new Message();
+                Message message2 = new Message();
+                message2.setSent(false);
+                message1.setContent(message.getText().toString());
+                DateFormat df = new SimpleDateFormat("h:mm a");
+                String date = df.format(Calendar.getInstance().getTime());
+                message2.setCreated(date);
+                message2.setContent(message.getText().toString());
+                message2.setContactId(ConnectedUsername);
+                message1.setCreated(date);
+                message1.setSent(true);
+                message1.setContactId(CurrentIntent.getStringExtra("id"));
+                Contact c = db.ContactDao().get(CurrentIntent.getStringExtra("id"));
+                Contact c1 = db.ContactDao().get(ConnectedUsername);
+                ContactDao.delete(c1);
+                ContactDao.delete(c);
+                c.setLast(message.getText().toString());
+                c.setLastdate(date);
+                c1.setLast(message.getText().toString());
+                c1.setLastdate(date);
+                ContactDao.insert(c1);
+                ContactDao.insert(c);
+                MessageDao.insert(message1);
+                MessageDao.insert(message2);
+                message.setText(" ");
+//            listView = findViewById(R.id.list_view);
+//            adapter = new CustomMessageAdapter(getApplicationContext(), messages);
+//            listView.setAdapter(adapter);
+//            listView.setClickable(true);
+//            adapter.notifyDataSetChanged();
+                onResume();
+            }
         });
 
         listView.setOnItemLongClickListener((adapterView, view,i,l) -> {
@@ -77,14 +106,18 @@ public class SpecificChat extends AppCompatActivity {
         messages.addAll(MessageDao.indexMessages(CurrentIntent.getStringExtra("id")));
         int x = messages.size();
         adapter.notifyDataSetChanged();
+
     }
+
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onResume() {
         super.onResume();
         messages.clear();
         messages.addAll(MessageDao.indexMessages(CurrentIntent.getStringExtra("id")));
-        int x = messages.size();
+        System.out.println("debug");
         adapter.notifyDataSetChanged();
+        listView.setVisibility(View.VISIBLE);
     }
 }
 

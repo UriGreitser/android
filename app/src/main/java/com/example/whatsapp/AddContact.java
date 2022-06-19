@@ -39,6 +39,7 @@ public class AddContact extends AppCompatActivity {
         contact.setLastdate("last date");
         ContactDao.insert(contact);
         User u = UserDao.get(nickname.getText().toString());
+        User connected = UserDao.get(ConnectedUsername);
         if (u != null) {
             Contact c = new Contact();
             c.setId(ConnectedUsername);
@@ -46,8 +47,8 @@ public class AddContact extends AppCompatActivity {
             c.setLastdate(contact.getLastdate());
             c.setCountMessages(contact.getCountMessages());
             c.setUserName(u.getName());
-            c.setServer(u.getServer());
-            c.setName(u.getNickname());
+            c.setServer(connected.getServer());
+            c.setName(connected.getNickname());
             ContactDao.insert(c);
         }
 

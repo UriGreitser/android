@@ -8,11 +8,13 @@
 
     <ListView
         android:id="@+id/list_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/custom_list_text_msg"
-        >
-    </ListView>
+        android:layout_width="410dp"
+        android:layout_height="555dp"
+        app:layout_constraintBottom_toTopOf="@+id/textContent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/custom_list_text_msg"></ListView>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/textContent"
@@ -26,7 +28,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.93"
+        app:layout_constraintVertical_bias="0.976"
         tools:ignore="KeyboardInaccessibleWidget" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -34,12 +36,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:layout_marginStart="9dp"
+        android:src="@drawable/ic_add_contact"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textContent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.952" />
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/contactName"
+        android:layout_width="98dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="4dp"
+        android:text="TextView"
+        android:textColor="#FF0303"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/list_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.051"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

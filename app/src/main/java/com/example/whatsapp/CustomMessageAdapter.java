@@ -17,12 +17,21 @@ public class CustomMessageAdapter extends ArrayAdapter<Message> {
     LayoutInflater inflater;
     AppDB db;
     ContactDao ContactDao;
+    String ConnectedUsername;
 
     public CustomMessageAdapter(Context ctx, List<Message> messageArrayList) {
         super(ctx, R.layout.custom_list_text_msg, messageArrayList);
         db = AppDB.getDatabase(ctx.getApplicationContext());
         this.inflater = LayoutInflater.from(ctx);
     }
+
+    public CustomMessageAdapter(Context ctx, List<Message> messageArrayList, String c) {
+        super(ctx, R.layout.custom_list_text_msg, messageArrayList);
+        db = AppDB.getDatabase(ctx.getApplicationContext());
+        this.inflater = LayoutInflater.from(ctx);
+        this.ConnectedUsername = c;
+    }
+
 
     @NonNull
     @Override
@@ -45,8 +54,11 @@ public class CustomMessageAdapter extends ArrayAdapter<Message> {
         String contactID = message.getContactId();
         ContactDao = db.ContactDao();
         Contact c = ContactDao.get(contactID);
-        String username = c.getUserName();
-        sender.setText(username + ":");
+        if (message.isSent()) {
+            sender.setText(ConnectedUsername);   //user sent the message
+        } else {
+            sender.setText(message.getContactId());
+        }
 //        time.setText(message.getLastdate());
 
         return convertView;
