@@ -2,6 +2,8 @@ package com.example.whatsapp.api;
 
 import android.util.Log;
 
+import com.example.whatsapp.MyApplication;
+import com.example.whatsapp.R;
 import com.example.whatsapp.User;
 
 import java.util.List;

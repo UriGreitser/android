@@ -8,24 +8,54 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.whatsapp.api.ContactAPI;
+import com.example.whatsapp.api.MessageAPI;
+import com.example.whatsapp.api.UserAPI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 private AppDB db;
 private UserDao UserDao;
+private ContactDao ContactDao;
+private MessageDao MessageDao;
 private boolean flag = false;
-//private List<User> users;
-//private List<Contact> contacts;
+private List<User> users;
+private List<Contact> contacts;
+private List<Message> messages;
+private ContactAPI contactAPI;
+private MessageAPI messageAPI;
+private UserAPI userAPI;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
         db = AppDB.getDatabase(getApplicationContext());
         UserDao = db.UserDao();
+        MessageDao = db.MessageDao();
+        ContactDao = db.ContactDao();
+//        users = new ArrayList<>();
+//        contacts = new ArrayList<>();
+//        messages = new ArrayList<>();
+//        users = new ArrayList<>();
+//        userAPI = new UserAPI(users);
+//        userAPI.get();
+//        for (User user : users) {
+//            UserDao.insert(user);
+//            contactAPI = new ContactAPI(contacts, user.getName());
+//            contactAPI.get();
+//            for (Contact contact : contacts) {
+//                 ContactDao.insert(contact);
+//                 messageAPI = new MessageAPI(messages);
+//                 messageAPI.get(user.getName(), contact.getId());
+//                    for (Message message : messages) {
+//                        MessageDao.insert(message);
+//                    }
+//            }
+//        }
         //register button
     Button btnRegister = findViewById(R.id.btnRegister);
     FloatingActionButton btnSettings = findViewById(R.id.btnAddContact);
