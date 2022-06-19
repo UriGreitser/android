@@ -48,6 +48,7 @@ public class AddContact extends AppCompatActivity {
         contactAPI.post(contact);
         invitationsAPI.post(ConnectedUsername, contact.getId(), "10.0.2.2:7092");
         User u = UserDao.get(nickname.getText().toString());
+        User connected = UserDao.get(ConnectedUsername);
         if (u != null) {
             Contact c = new Contact();
             c.setId(ConnectedUsername);
@@ -55,8 +56,8 @@ public class AddContact extends AppCompatActivity {
             c.setLastdate(contact.getLastdate());
             c.setCountMessages(contact.getCountMessages());
             c.setUserName(u.getName());
-            c.setServer(u.getServer());
-            c.setName(u.getNickname());
+            c.setServer(connected.getServer());
+            c.setName(connected.getNickname());
             ContactDao.insert(c);
         }
 

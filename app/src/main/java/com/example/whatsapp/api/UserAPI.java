@@ -2,6 +2,7 @@ package com.example.whatsapp.api;
 
 import android.util.Log;
 
+import com.example.whatsapp.BaseUrl;
 import com.example.whatsapp.MyApplication;
 import com.example.whatsapp.R;
 import com.example.whatsapp.User;
@@ -22,7 +23,7 @@ public class UserAPI {
         this.users = users;
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:7092/")
+                .baseUrl(BaseUrl.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         WebServerAPI = retrofit.create(WebServerAPI.class);

@@ -2,12 +2,10 @@ package com.example.whatsapp;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(primaryKeys = { "id", "UserName" } )
 public class Contact {
 
-    @PrimaryKey
     @NonNull
     private String id;
     private String name;
@@ -15,6 +13,7 @@ public class Contact {
     private String last;
     private String lastdate;
     private int countMessages;
+    @NonNull
     private String UserName;
 
     public String getId() {
