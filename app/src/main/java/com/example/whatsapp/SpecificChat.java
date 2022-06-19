@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.whatsapp.api.MessageAPI;
+import com.example.whatsapp.api.TransferAPI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.DateFormat;
@@ -28,6 +30,8 @@ public class SpecificChat extends AppCompatActivity {
     private Intent CurrentIntent;
     private String ConnectedUsername;
     private EditText message;
+    private TransferAPI transferAPI;
+    private MessageAPI messageAPI = new MessageAPI();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +56,6 @@ public class SpecificChat extends AppCompatActivity {
         btnSendMessage.setOnClickListener(view -> {
             message = findViewById(R.id.textContent);
             User userCheck = db.UserDao().get(CurrentIntent.getStringExtra("id"));
-            if(userCheck == null) {
-
-            }
-            else if (message.getText().toString().length() != 0 ) {
                 Message message1 = new Message();
                 Message message2 = new Message();
                 message2.setSent(false);
@@ -70,24 +70,25 @@ public class SpecificChat extends AppCompatActivity {
                 message1.setContactId(CurrentIntent.getStringExtra("id"));
                 Contact c = db.ContactDao().get(CurrentIntent.getStringExtra("id"));
                 Contact c1 = db.ContactDao().get(ConnectedUsername);
-                ContactDao.delete(c1);
-                ContactDao.delete(c);
                 c.setLast(message.getText().toString());
                 c.setLastdate(date);
                 c1.setLast(message.getText().toString());
                 c1.setLastdate(date);
+
+            if(userCheck != null && message.getText().toString().length() != 0) {
+                ContactDao.delete(c1);
+                ContactDao.delete(c);
                 ContactDao.insert(c1);
                 ContactDao.insert(c);
                 MessageDao.insert(message1);
                 MessageDao.insert(message2);
                 message.setText("");
-//            listView = findViewById(R.id.list_view);
-//            adapter = new CustomMessageAdapter(getApplicationContext(), messages);
-//            listView.setAdapter(adapter);
-//            listView.setClickable(true);
-//            adapter.notifyDataSetChanged();
                 onResume();
             }
+            this.transferAPI = new TransferAPI(c.getServer());
+            this.transferAPI.post(ConnectedUsername, message1.getContactId(), message1.getContent());
+            this.messageAPI.post(message1, ConnectedUsername);
+
         });
 
         listView.setOnItemLongClickListener((adapterView, view,i,l) -> {

@@ -7,12 +7,17 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.whatsapp.api.ContactAPI;
+import com.example.whatsapp.api.InvitationsAPI;
+
 public class AddContact extends AppCompatActivity {
     private AppDB db;
     private ContactDao ContactDao;
     private UserDao UserDao;
     private Intent CurrentIntent;
     private String ConnectedUsername;
+    private ContactAPI contactAPI;
+    private InvitationsAPI invitationsAPI;
 
 
     @Override
@@ -21,6 +26,7 @@ public class AddContact extends AppCompatActivity {
         setContentView(R.layout.activity_add_contact);
         CurrentIntent = getIntent();
         ConnectedUsername = CurrentIntent.getStringExtra("username");
+        this.contactAPI = new ContactAPI(this.ConnectedUsername);
         Button btnSave = findViewById(R.id.btnSave);
         db = AppDB.getDatabase(getApplicationContext());
         ContactDao = db.ContactDao();
@@ -37,7 +43,10 @@ public class AddContact extends AppCompatActivity {
         contact.setUserName(ConnectedUsername);
         contact.setLast("last text");
         contact.setLastdate("last date");
+        invitationsAPI = new InvitationsAPI(contact.getServer());
         ContactDao.insert(contact);
+        contactAPI.post(contact);
+        invitationsAPI.post(ConnectedUsername, contact.getId(), "10.0.2.2:7092");
         User u = UserDao.get(nickname.getText().toString());
         User connected = UserDao.get(ConnectedUsername);
         if (u != null) {
