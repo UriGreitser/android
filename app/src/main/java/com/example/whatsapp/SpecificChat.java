@@ -50,12 +50,12 @@ public class SpecificChat extends AppCompatActivity {
         contactName.setText(CurrentIntent.getStringExtra("id"));
 
         btnSendMessage.setOnClickListener(view -> {
-            User userCheck = db.UserDao().get(contactName.toString());
+            message = findViewById(R.id.textContent);
+            User userCheck = db.UserDao().get(CurrentIntent.getStringExtra("id"));
             if(userCheck == null) {
 
             }
-            else {
-                message = findViewById(R.id.textContent);
+            else if (message.getText().toString().length() != 0 ) {
                 Message message1 = new Message();
                 Message message2 = new Message();
                 message2.setSent(false);
@@ -80,7 +80,7 @@ public class SpecificChat extends AppCompatActivity {
                 ContactDao.insert(c);
                 MessageDao.insert(message1);
                 MessageDao.insert(message2);
-                message.setText(" ");
+                message.setText("");
 //            listView = findViewById(R.id.list_view);
 //            adapter = new CustomMessageAdapter(getApplicationContext(), messages);
 //            listView.setAdapter(adapter);
