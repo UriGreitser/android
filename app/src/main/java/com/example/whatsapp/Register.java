@@ -63,7 +63,6 @@ public class Register extends AppCompatActivity {
             if (!isValidPassword(etPassword.getText().toString())) {
                 flag = true;
                 InvalidPassword.setVisibility(TextView.VISIBLE);
-                //testvzdfvjgjgjuaergaeg
             }
             if (!flag) {
                 User user = new User(name);
@@ -77,10 +76,10 @@ public class Register extends AppCompatActivity {
                 TextView good = findViewById(R.id.good);
                 good.setVisibility(View.VISIBLE);
                 startActivity(new Intent(Register.this, MainActivity.class));
-
             }
-
-
+            else {
+                flag = false;
+            }
         });
 
 

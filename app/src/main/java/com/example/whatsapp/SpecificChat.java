@@ -56,6 +56,7 @@ public class SpecificChat extends AppCompatActivity {
         btnSendMessage.setOnClickListener(view -> {
             message = findViewById(R.id.textContent);
             User userCheck = db.UserDao().get(CurrentIntent.getStringExtra("id"));
+            if (message.getText().toString().length() != 0) {
                 Message message1 = new Message();
                 Message message2 = new Message();
                 message2.setSent(false);
@@ -72,23 +73,23 @@ public class SpecificChat extends AppCompatActivity {
                 Contact c1 = db.ContactDao().get(ConnectedUsername);
                 c.setLast(message.getText().toString());
                 c.setLastdate(date);
-                c1.setLast(message.getText().toString());
-                c1.setLastdate(date);
-
-            if(userCheck != null && message.getText().toString().length() != 0) {
-                ContactDao.delete(c1);
-                ContactDao.delete(c);
-                ContactDao.insert(c1);
-                ContactDao.insert(c);
                 MessageDao.insert(message1);
-                MessageDao.insert(message2);
                 message.setText("");
-                onResume();
-            }
+                ContactDao.delete(c);
+                ContactDao.insert(c);
+                if (userCheck != null) {
+                    c1.setLast(message.getText().toString());
+                    c1.setLastdate(date);
+                    ContactDao.delete(c1);
+                    ContactDao.insert(c1);
+                    MessageDao.insert(message2);
+                }
+
             this.transferAPI = new TransferAPI(c.getServer());
             this.transferAPI.post(ConnectedUsername, message1.getContactId(), message1.getContent());
             this.messageAPI.post(message1, ConnectedUsername);
-
+            onResume();
+            }
         });
 
         listView.setOnItemLongClickListener((adapterView, view,i,l) -> {
